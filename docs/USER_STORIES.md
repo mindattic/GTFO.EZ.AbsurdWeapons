@@ -249,3 +249,4 @@ _Nothing recorded yet._
 | G.AWPN-T222 | 2026-10-24 | chore | closed | Cut the v15 release: bump VERSION/manifest, move the Home-toggle changelog entry from the already-shipped v14 into a new v15 section, rebuild and repackage dist/ | package/manifest.json |
 | G.AWPN-T223 | 2026-10-24 | docs | closed | Reread and refresh README/package README: fix every Insert/Delete wording for the swap (Insert is now health, Delete is now ammo) | README.md |
 | G.AWPN-T224 | 2026-10-24 | chore | closed | Cut the v16 release: End replaces Home as the Absurd Weapons toggle, pull in GTFO.EZ.Shared's Insert/Delete swap (submodule bump), fix a stale Insert=ammo comment, fix GTFO.* wording, rebuild and repackage dist/ | package/manifest.json |
+| G.AWPN-T225 | 2026-10-24 | chore | closed | Cut the v17 release: bump submodule to GTFO.EZ.Shared's Order cleanup, join CrashTestDummies/SkipDrop into the vN scheme, bump VERSION/manifest, rebuild and repackage dist/ | package/manifest.json |
