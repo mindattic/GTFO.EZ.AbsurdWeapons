@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BepInEx.Configuration;
 using GameData;
 using Gear;
 using MindAttic.GTFO.Shared;
@@ -11,17 +12,25 @@ namespace GTFO.EZ.AbsurdWeapons;
 /// <summary>
 /// Pressing a slot's own select key (melee, main, special, tool - 1 to 4 by default, following
 /// rebinds) while that slot is already in hand swaps its weapon for the next one in that slot's
-/// cycle, mid-level. The cycle is the gear you dropped in with (added the first time you swap that
-/// slot) followed by this mod's weapons for the slot, so what you brought comes round again. It
-/// equips through the game's own loadout path (PlayerBackpackManager.EquipLocalGear, which syncs to
-/// teammates), then re-wields the slot, and a three-second line under the crosshair names what you
-/// switched to.
+/// cycle, mid-level - but only once Absurd Weapons is switched on (see below). The cycle is the
+/// gear you dropped in with (added the first time you swap that slot) followed by this mod's
+/// weapons for the slot, so what you brought comes round again. It equips through the game's own
+/// loadout path (PlayerBackpackManager.EquipLocalGear, which syncs to teammates), then re-wields
+/// the slot, and a three-second line under the crosshair names what you switched to.
 /// Every weapon keeps its own ammo for the rest of the level: what's in its magazine and the
 /// slot's reserve are saved when you swap away from it and put back when you swap to it again. One
 /// of this mod's weapons starts full the first time it's equipped in a level.
+/// Absurd Weapons is a toggle (<see cref="toggleKey"/>, Home by default), off at the start of
+/// every level. Pressing it the first time turns it on and snapshots every slot's current gear and
+/// the player's current health; cycling does nothing until it's on. Pressing it again turns it
+/// off: every slot that got swapped goes back to its snapshotted gear and ammo - dropping you out
+/// of whichever Absurd weapon you were holding, back into what you dove in with - and health is
+/// set back to the snapshotted value.
 /// </summary>
 internal sealed class GearCycler : MonoBehaviour
 {
+    private static ConfigEntry<KeyCode> toggleKey = null!;
+
     // The game's own select-slot actions (so rebinds are followed): pressed again while that slot is
     // already in hand, it cycles the slot - the game itself does nothing with that press.
     private static readonly (InputAction Action, InventorySlot Slot)[] SlotKeys =
@@ -51,7 +60,17 @@ internal sealed class GearCycler : MonoBehaviour
     private InventorySlot wieldSlot = InventorySlot.None;
     private float pendingFrom, pendingGiveUpAt;
 
+    // Whether Absurd Weapons is switched on for the current level; off by default on every dive.
+    private bool active;
+    private float? startingHealth;
+
     public GearCycler(IntPtr ptr) : base(ptr) { }
+
+    internal static void Bind(ConfigFile config)
+    {
+        toggleKey = config.Bind("Gear Cycling", "ToggleAbsurdWeaponsKey", KeyCode.Home,
+            "Switches Absurd Weapons on (and snapshots your current gear and health) or, pressed again, off - putting every swapped slot and your health back to that snapshot. Off at the start of every level.");
+    }
 
     private void Update()
     {
@@ -63,18 +82,73 @@ internal sealed class GearCycler : MonoBehaviour
                 ammo.Clear();
                 pending.Clear();
                 wieldSlot = InventorySlot.None;
+                active = false;
+                startingHealth = null;
                 return;
             }
 
             if (pending.Count > 0) FinishPending();
 
             if (FocusStateManager.CurrentState != eFocusState.FPS) return;
+            if (Input.GetKeyDown(toggleKey.Value))
+            {
+                ToggleActive();
+                return;
+            }
+            if (!active) return;
             if (SlotKeyPressedAgain()) Cycle(1);
         }
         catch (Exception e)
         {
             Plugin.Logger.LogError($"GTFO.EZ.AbsurdWeapons gear cycling failed: {e}");
         }
+    }
+
+    // Home (by default): first press turns Absurd Weapons on and snapshots the current loadout and
+    // health; a second press turns it off, putting every swapped slot and health back to that
+    // snapshot - whatever Absurd weapon you're holding is swapped out as part of its slot restoring.
+    private void ToggleActive()
+    {
+        var player = PlayerManager.GetLocalPlayerAgent();
+        if (player == null || !player.Alive) return;
+
+        if (!active)
+        {
+            active = true;
+            starting.Clear();
+            foreach (var (_, slot) in SlotKeys)
+            {
+                var gear = GearIn(slot);
+                if (gear != null) starting[slot] = gear;
+            }
+            startingHealth = player.Damage?.Health;
+            Show("Absurd Weapons: ON");
+            return;
+        }
+
+        Restore(player);
+        active = false;
+        starting.Clear();
+        startingHealth = null;
+        Show("Absurd Weapons: OFF - starting loadout restored");
+    }
+
+    // Puts every snapshotted slot back to the gear (and that gear's own ammo) it held when Absurd
+    // Weapons was switched on, then re-wields whatever slot was in hand, and restores health.
+    private void Restore(PlayerAgent player)
+    {
+        var hand = player.Inventory.WieldedSlot;
+        foreach (var (slot, gear) in starting)
+        {
+            var category = gear.GetCompID(eGearComponent.Category);
+            var current = pending.TryGetValue(slot, out var building) ? building : CategoryIn(slot);
+            if (current == category) continue;
+            if (!pending.ContainsKey(slot)) SaveAmmo(slot);
+            Equip(slot, gear);
+        }
+        if (hand != InventorySlot.None) wieldSlot = hand;
+
+        if (startingHealth.HasValue && player.Damage != null) player.Damage.SendSetHealth(startingHealth.Value);
     }
 
     private void Cycle(int step)

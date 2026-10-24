@@ -244,3 +244,4 @@ _Nothing recorded yet._
 | G.AWPN-T217 | 2026-10-20 | docs | open | Publish GTFO.EZ.AbsurdWeapons docs to GitHub Pages via the shared Agency DocFX pipeline: run adopt-docs-site.ps1 (README.md as home page, docs/*.md as articles, API reference only where the code builds in CI), enable Pages with build_type=workflow, set the repo homepage URL, retire tools/build-readme.ps1 and README.htm, confirm the docs Actions run is green and https://mindattic.github.io/GTFO.EZ.AbsurdWeapons/ returns 200. Depends on MAT-T8. | — |
 | G.AWPN-T218 | 2026-10-22 | docs | closed | Update USER_STORIES.md | — |
 | G.AWPN-T219 | 2026-10-24 | docs | closed | Update USER_STORIES.md | — |
+| G.AWPN-T220 | 2026-10-24 | feature | closed | Home key toggles Absurd Weapons on/off: off at run start, on restores nothing yet, off again strips all absurd gear and restores starting loadout, ammo and health | GearCycler.cs |

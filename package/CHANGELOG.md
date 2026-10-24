@@ -2,6 +2,10 @@
 
 ## v14
 
+- **Absurd Weapons is a toggle again:** off at the start of every level. **Home** switches it on,
+  snapshotting your current loadout and health, so swapping mid-level (below) starts working; **Home**
+  again switches it off, putting every swapped slot and your health back to that snapshot - out of
+  whatever Absurd weapon you're holding and back to a serious run - all at once.
 - **Bug fix:** the lasers, Chain Lightning, Shrink Beam and Tentacle Cannon emptied in about two
   seconds. Their ammo now goes by how long you hold the trigger: a full magazine lasts 10 seconds of
   sustained fire (new `[Ammo] MagazineSeconds`, replacing `StreamPercentPerSecond`). The beam guns

@@ -222,6 +222,16 @@ The Hand Grenade, the Stim Pack and the loot mix (kits, grenades and stims as co
 
 ## Swapping weapons in a level
 
+Absurd Weapons is **off at the start of every level**. **Press Home** to turn it on; press it again to
+turn it off.
+
+- **Turning it on** snapshots your current loadout (melee, main, special and tool) and your current
+  health, then lets swapping (below) start working.
+- **Turning it off** puts every slot you swapped back to that snapshot's gear and its own ammo -
+  dropping you out of whatever Absurd weapon you're holding and back into what you dove in with - and
+  sets your health back to the snapshotted value. A serious run can carry on as if you'd never touched
+  the weapons.
+
 Hold a main, special, tool or melee weapon and **press that slot's own key again** - 1 to 4 by
 default (melee, main, special, tool), or whatever you've rebound them to: with the slot already in
 hand, each press moves on to its next weapon. A short line under the crosshair names what you switched to.
@@ -522,8 +532,14 @@ Shared by everything that flings enemies (the Warhammer).
 same two keys every GTFO.* mod has, from one shared copy of the code; with several installed only
 one answers, so a press never toggles twice.
 
-Weapon cycling has no settings: it uses the game's own slot keys (see
-[Swapping weapons in a level](#swapping-weapons-in-a-level)).
+### `[Gear Cycling]`
+
+| Setting | Default | What it does |
+|---|---|---|
+| `ToggleAbsurdWeaponsKey` | Home | Switches Absurd Weapons on (snapshotting your current gear and health) or, pressed again, off (putting every swapped slot and your health back to that snapshot). Off at the start of every level. |
+
+Swapping itself, once Absurd Weapons is on, uses the game's own slot keys and has no setting of its
+own (see [Swapping weapons in a level](#swapping-weapons-in-a-level)).
 
 ### `[Sounds]`
 

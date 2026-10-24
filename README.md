@@ -94,10 +94,15 @@ blade length before and after. The new weapons appear in the loadout screen in t
 
 - **Pick weapons** in the loadout screen like any vanilla gear: they sit in the melee, main, special
   and tool slots, each marked "(!)".
-- **Swap mid-level:** with a slot already in hand, press that slot's own select key again (1 to 4 by
-  default - melee, main, special, tool - following rebinds) to move to its next weapon. The first swap
-  of a slot adds the gear you dropped in with to the front of its cycle. A line under the crosshair
-  names the new weapon, and teammates see the swap.
+- **Absurd Weapons is a toggle, off at the start of every level:** press **Home** to turn it on - it
+  snapshots your current loadout and health - and swapping mid-level (below) starts working. Press
+  **Home** again to turn it off: every slot you swapped goes back to that snapshot's gear and ammo
+  (dropping you out of whatever Absurd weapon you're holding), and your health is set back to it too -
+  so the run can go on as if you'd never touched them.
+- **Swap mid-level** (once Absurd Weapons is on): with a slot already in hand, press that slot's own
+  select key again (1 to 4 by default - melee, main, special, tool - following rebinds) to move to its
+  next weapon. The first swap of a slot adds the gear you dropped in with to the front of its cycle. A
+  line under the crosshair names the new weapon, and teammates see the swap.
 - **Full charges** (hold the melee charge to at least 95% of full) trigger the Katana dash, the
   Mjolnir throw, the Warhammer slam and the Shadow Dagger stealth.
 - **Rocket Launcher:** right-click detonates your oldest rocket in flight, one per click.
@@ -515,16 +520,26 @@ down, every client heals its own local player `HealPercent` (1%) of max health e
 
 `GearCycler`, an injected MonoBehaviour, reads the game's own `SelectMelee`, `SelectStandard`,
 `SelectSpecial` and `SelectTool` actions while `FocusStateManager.CurrentState` is `FPS` and that slot
-is already the wielded one (the game ignores that press itself). It has no keys or settings of its own.
-The cycle is the slot's starting gear (recorded on the slot's first swap of the level) followed by the
-`GearManager.GetAllGearForSlot` entries whose category is in `DataBlocks.AddedCategories`. It equips
-the next with `PlayerBackpackManager.EquipLocalGear` - the lobby's own path, which syncs - and shows a
-three-second line under the crosshair (`MessageHelper`, `MessageType.Center`).
+is already the wielded one (the game ignores that press itself), but only once Absurd Weapons is
+switched on (below). The cycle is the slot's starting gear (recorded on the slot's first swap of the
+level) followed by the `GearManager.GetAllGearForSlot` entries whose category is in
+`DataBlocks.AddedCategories`. It equips the next with `PlayerBackpackManager.EquipLocalGear` - the
+lobby's own path, which syncs - and shows a three-second line under the crosshair (`MessageHelper`,
+`MessageType.Center`).
 
 **Per-weapon ammo:** before swapping a slot away, `SaveAmmo` stores the gun's clip and the slot's
 reserve under the outgoing gear's category. `FinishPending` waits until the new item `IsLoaded` (5 s at
 most), then puts its saved ammo back - or, for one of ours not yet seen this level, a full magazine and
 reserve - and re-wields the slot. Everything clears on leaving `InLevel`.
+
+**The Absurd Weapons toggle:** `[Gear Cycling] ToggleAbsurdWeaponsKey` (`Home` by default) is read
+straight off `Input.GetKeyDown`, not a game `InputAction`. Off at the start of every level. The first
+press turns it on, records every one of the four slots' current `GearIDRange` and the local player's
+`Damage.Health`, and lets swapping (above) run. The second press turns it off: every recorded slot
+still holding something else is swapped back the same way a cycle swap is (saving and restoring its
+own ammo), the slot that was in hand is re-wielded once the swaps finish loading, and
+`Damage.SendSetHealth` puts health back to its recorded value - so a run can go back to serious with
+none of the absurdity left behind.
 
 ### Sounds
 
