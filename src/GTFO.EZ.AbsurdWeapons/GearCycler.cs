@@ -20,7 +20,7 @@ namespace GTFO.EZ.AbsurdWeapons;
 /// Every weapon keeps its own ammo for the rest of the level: what's in its magazine and the
 /// slot's reserve are saved when you swap away from it and put back when you swap to it again. One
 /// of this mod's weapons starts full the first time it's equipped in a level.
-/// Absurd Weapons is a toggle (<see cref="toggleKey"/>, Home by default), off at the start of
+/// Absurd Weapons is a toggle (<see cref="toggleKey"/>, End by default), off at the start of
 /// every level. Pressing it the first time turns it on and snapshots every slot's current gear and
 /// the player's current health; cycling does nothing until it's on. Pressing it again turns it
 /// off: every slot that got swapped goes back to its snapshotted gear and ammo - dropping you out
@@ -68,7 +68,7 @@ internal sealed class GearCycler : MonoBehaviour
 
     internal static void Bind(ConfigFile config)
     {
-        toggleKey = config.Bind("Gear Cycling", "ToggleAbsurdWeaponsKey", KeyCode.Home,
+        toggleKey = config.Bind("Gear Cycling", "ToggleAbsurdWeaponsKey", KeyCode.End,
             "Switches Absurd Weapons on (and snapshots your current gear and health) or, pressed again, off - putting every swapped slot and your health back to that snapshot. Off at the start of every level.");
     }
 
@@ -104,7 +104,7 @@ internal sealed class GearCycler : MonoBehaviour
         }
     }
 
-    // Home (by default): first press turns Absurd Weapons on and snapshots the current loadout and
+    // End (by default): first press turns Absurd Weapons on and snapshots the current loadout and
     // health; a second press turns it off, putting every swapped slot and health back to that
     // snapshot - whatever Absurd weapon you're holding is swapped out as part of its slot restoring.
     private void ToggleActive()

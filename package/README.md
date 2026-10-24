@@ -222,7 +222,7 @@ The Hand Grenade, the Stim Pack and the loot mix (kits, grenades and stims as co
 
 ## Swapping weapons in a level
 
-Absurd Weapons is **off at the start of every level**. **Press Home** to turn it on; press it again to
+Absurd Weapons is **off at the start of every level**. **Press End** to turn it on; press it again to
 turn it off.
 
 - **Turning it on** snapshots your current loadout (melee, main, special and tool) and your current
@@ -529,14 +529,15 @@ Shared by everything that flings enemies (the Warhammer).
 
 **Insert** toggles infinite health and **Delete** infinite ammo (every gun, this mod's and vanilla,
 never runs out or reloads), each announced in the event log and always in the console too, off at
-the start. They're the same two keys every GTFO.* mod has, from one shared copy of the code; with
-several installed only one answers, so a press never toggles twice.
+the start. They're the same two keys GTFO.EZ, its Absurd companions and GTFO.CrashTestDummies all
+have, from one shared copy of the code; with several installed only one answers, so a press never
+toggles twice.
 
 ### `[Gear Cycling]`
 
 | Setting | Default | What it does |
 |---|---|---|
-| `ToggleAbsurdWeaponsKey` | Home | Switches Absurd Weapons on (snapshotting your current gear and health) or, pressed again, off (putting every swapped slot and your health back to that snapshot). Off at the start of every level. |
+| `ToggleAbsurdWeaponsKey` | End | Switches Absurd Weapons on (snapshotting your current gear and health) or, pressed again, off (putting every swapped slot and your health back to that snapshot). Off at the start of every level. |
 
 Swapping itself, once Absurd Weapons is on, uses the game's own slot keys and has no setting of its
 own (see [Swapping weapons in a level](#swapping-weapons-in-a-level)).

@@ -1,5 +1,15 @@
 # Changelog
 
+## v16
+
+- **The Absurd Weapons toggle moved from Home to End.** GTFO.EZ.AbsurdMoves' own toggle moves the
+  other way, onto Home.
+- **Insert and Delete swapped: Insert is now infinite health, Delete is now infinite ammo.** Both
+  also always announce in the console now, not just the event log. Shared code (`GTFO.EZ.Shared`),
+  so GTFO.EZ, its Absurd companions and GTFO.CrashTestDummies all pick it up.
+- Moves in step with the GTFO.EZ family's version number (GTFO.EZ, GTFO.EZ.AbsurdWeapons,
+  GTFO.EZ.AbsurdMoves and GTFO.EZ.AbsurdItems share one).
+
 ## v15
 
 - **Absurd Weapons is a toggle again:** off at the start of every level. **Home** switches it on,
@@ -7,9 +17,6 @@
   again switches it off, putting every swapped slot and your health back to that snapshot - out of
   whatever Absurd weapon you're holding and back to a serious run - all at once. The on/off state is
   announced on-screen and always in the console too.
-- **Insert and Delete swapped: Insert is now infinite health, Delete is now infinite ammo.** Both
-  also always announce in the console now, not just the event log. Shared code (`GTFO.EZ.Shared`),
-  so every GTFO.* mod picks it up.
 - Moves in step with the GTFO.EZ family's version number (GTFO.EZ, GTFO.EZ.AbsurdWeapons,
   GTFO.EZ.AbsurdMoves and GTFO.EZ.AbsurdItems share one).
 

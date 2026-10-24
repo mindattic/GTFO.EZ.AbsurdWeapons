@@ -4,7 +4,7 @@ A GTFO mod that adds eighteen over-the-top weapons, from a dashing katana and a 
 
 ![Language](https://img.shields.io/badge/language-C%23%20(.NET%206)-blue)
 ![Platform](https://img.shields.io/badge/platform-BepInEx%20IL2CPP-informational)
-![Status](https://img.shields.io/badge/status-in%20development%20(v15)-yellow)
+![Status](https://img.shields.io/badge/status-in%20development%20(v16)-yellow)
 
 ![Absurd Weapons cover art: GTFO prisoners firing a tentacle gun, a laser cannon and curving smart rounds, and swinging a giant spiked hammer](logo.png)
 
@@ -60,7 +60,8 @@ screen. The player-facing breakdown of each one, with numbers, is in
 **Around the weapons**
 
 - In-level swapping on a second press of the slot key, with each weapon keeping its own ammo.
-- Insert / Delete toggle infinite ammo and infinite health, the shared toggles every GTFO.* mod carries.
+- Insert / Delete toggle infinite health and infinite ammo, the shared toggles GTFO.EZ, its Absurd
+  companions and GTFO.CrashTestDummies all carry.
 - A master switch and a per-weapon `Enabled` switch in the config.
 
 ## Quick start
@@ -86,7 +87,7 @@ build at it directly:
 dotnet build .\src\GTFO.EZ.AbsurdWeapons\GTFO.EZ.AbsurdWeapons.csproj -p:BepInEx="$env:AppData\r2modmanPlus-local\GTFO\profiles\Default\BepInEx"
 ```
 
-Launch the game. `BepInEx/LogOutput.log` should show `GTFO.EZ.AbsurdWeapons v15.0.0 loaded.`, one
+Launch the game. `BepInEx/LogOutput.log` should show `GTFO.EZ.AbsurdWeapons v16.0.0 loaded.`, one
 `GTFO.EZ.AbsurdWeapons added the <weapon> ...` line per weapon and, when a melee model is built, its
 blade length before and after. The new weapons appear in the loadout screen in their normal slots.
 
@@ -94,9 +95,9 @@ blade length before and after. The new weapons appear in the loadout screen in t
 
 - **Pick weapons** in the loadout screen like any vanilla gear: they sit in the melee, main, special
   and tool slots, each marked "(!)".
-- **Absurd Weapons is a toggle, off at the start of every level:** press **Home** to turn it on - it
+- **Absurd Weapons is a toggle, off at the start of every level:** press **End** to turn it on - it
   snapshots your current loadout and health - and swapping mid-level (below) starts working. Press
-  **Home** again to turn it off: every slot you swapped goes back to that snapshot's gear and ammo
+  **End** again to turn it off: every slot you swapped goes back to that snapshot's gear and ammo
   (dropping you out of whatever Absurd weapon you're holding), and your health is set back to it too -
   so the run can go on as if you'd never touched them.
 - **Swap mid-level** (once Absurd Weapons is on): with a slot already in hand, press that slot's own
@@ -532,7 +533,7 @@ reserve under the outgoing gear's category. `FinishPending` waits until the new 
 most), then puts its saved ammo back - or, for one of ours not yet seen this level, a full magazine and
 reserve - and re-wields the slot. Everything clears on leaving `InLevel`.
 
-**The Absurd Weapons toggle:** `[Gear Cycling] ToggleAbsurdWeaponsKey` (`Home` by default) is read
+**The Absurd Weapons toggle:** `[Gear Cycling] ToggleAbsurdWeaponsKey` (`End` by default) is read
 straight off `Input.GetKeyDown`, not a game `InputAction`. Off at the start of every level. The first
 press turns it on, records every one of the four slots' current `GearIDRange` and the local player's
 `Damage.Health`, and lets swapping (above) run. The second press turns it off: every recorded slot
@@ -682,7 +683,7 @@ is `2.0.0`, and so on (minor and patch stay 0). `package/CHANGELOG.md` headers u
 The GTFO.EZ family - GTFO.EZ, GTFO.EZ.AbsurdWeapons, GTFO.EZ.AbsurdMoves and GTFO.EZ.AbsurdItems -
 shares one version number, so a matching set is easy to spot: the companions' first release was
 **v13**, in step with GTFO.EZ (not v1), and every release of the family bumps all four together.
-Current: v15 (`15.0.0` in `package/manifest.json` and `Plugin.VERSION`).
+Current: v16 (`16.0.0` in `package/manifest.json` and `Plugin.VERSION`).
 
 ## Sharing with friends
 
