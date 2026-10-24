@@ -122,7 +122,7 @@ internal sealed class GearCycler : MonoBehaviour
                 if (gear != null) starting[slot] = gear;
             }
             startingHealth = player.Damage?.Health;
-            Show("Absurd Weapons: ON");
+            Announce("Absurd Weapons: ON");
             return;
         }
 
@@ -130,7 +130,7 @@ internal sealed class GearCycler : MonoBehaviour
         active = false;
         starting.Clear();
         startingHealth = null;
-        Show("Absurd Weapons: OFF - starting loadout restored");
+        Announce("Absurd Weapons: OFF - starting loadout restored");
     }
 
     // Puts every snapshotted slot back to the gear (and that gear's own ammo) it held when Absurd
@@ -303,5 +303,13 @@ internal sealed class GearCycler : MonoBehaviour
     {
         if (!MessageHelper.Show(message, MessageType.Center, 3f))
             Plugin.Logger.LogInfo($"GTFO.EZ.AbsurdWeapons: {message}");
+    }
+
+    // The Absurd Weapons on/off state specifically: always in the console too (not just a fallback
+    // for when the on-screen message fails), so it's never just text that scrolled past.
+    private static void Announce(string message)
+    {
+        Show(message);
+        Plugin.Logger.LogInfo($"GTFO.EZ.AbsurdWeapons: {message}");
     }
 }
