@@ -3,7 +3,7 @@
 *(Listed on Thunderstore as `GtfoEZAbsurdWeapons` — package names there are restricted to letters, numbers,
 and underscores, so they can't contain a period.)*
 
-GTFO.EZ.AbsurdWeapons is a GTFO.EZ companion mod, built on [GTFO.EZ](https://github.com/mindattic/GTFO.EZ)'s core: it carries GTFO.EZ's shared code (the Insert/Delete infinite ammo and health toggles, and MessageHelper, which puts on-screen messages wherever they fit) and works with or without GTFO.EZ installed. It was called GTFO.AbsurdWeapons before its first release.
+GTFO.EZ.AbsurdWeapons is a GTFO.EZ companion mod, built on [GTFO.EZ](https://github.com/mindattic/GTFO.EZ)'s core: it carries GTFO.EZ's shared code (the Insert/Delete infinite health and ammo toggles, and MessageHelper, which puts on-screen messages wherever they fit) and works with or without GTFO.EZ installed. It was called GTFO.AbsurdWeapons before its first release.
 
 A BepInEx plugin for GTFO that adds **eighteen new weapons**: four melee weapons, thirteen guns
 and a tool. No game files are shipped or edited. Every weapon is built at load time from the game's own
@@ -35,7 +35,7 @@ level, and keeps its own ammo from then on (see [Swapping weapons in a level](#s
 The held-trigger guns (lasers, Chain Lightning, Shrink Beam and the Tentacle Cannon) spend ammo by
 **how long you hold the trigger**: a full magazine lasts **10 seconds** of sustained fire
 (`[Ammo] MagazineSeconds`). The beam guns (all but the Tentacle Cannon) **never reload** - an empty
-magazine refills straight from the reserve - and stop when the reserve is empty too. (Infinite ammo, on **Insert**, brings back bottomless guns.) They're tuned
+magazine refills straight from the reserve - and stop when the reserve is empty too. (Infinite ammo, on **Delete**, brings back bottomless guns.) They're tuned
 to be fun first; balance comes later.
 
 | Weapon | Slot | Model | In one line |
@@ -527,10 +527,10 @@ Shared by everything that flings enemies (the Warhammer).
 |---|---|---|
 | `MagazineSeconds` | 10 | Seconds of held trigger a full magazine lasts, for the lasers, Chain Lightning, Shrink Beam and Tentacle Cannon (their ammo goes by time held, not shots). The beam guns refill an empty magazine from the reserve instead of reloading. |
 
-**Insert** toggles infinite ammo (every gun, this mod's and vanilla, never runs out or reloads) and
-**Delete** infinite health, each announced in the event log and off at the start. They're the
-same two keys every GTFO.* mod has, from one shared copy of the code; with several installed only
-one answers, so a press never toggles twice.
+**Insert** toggles infinite health and **Delete** infinite ammo (every gun, this mod's and vanilla,
+never runs out or reloads), each announced in the event log and always in the console too, off at
+the start. They're the same two keys every GTFO.* mod has, from one shared copy of the code; with
+several installed only one answers, so a press never toggles twice.
 
 ### `[Gear Cycling]`
 

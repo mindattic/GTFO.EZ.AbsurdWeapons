@@ -107,7 +107,7 @@ blade length before and after. The new weapons appear in the loadout screen in t
   Mjolnir throw, the Warhammer slam and the Shadow Dagger stealth.
 - **Rocket Launcher:** right-click detonates your oldest rocket in flight, one per click.
 - **Victory Banner:** fire to plant it; look at it within 2.5 m and press Use to pick it up.
-- **Insert** toggles infinite ammo and **Delete** infinite health (your own player only).
+- **Insert** toggles infinite health and **Delete** infinite ammo (your own player only).
 
 Everyone in a lobby needs the identical mod version, with the same weapons switched on: weapons sync
 by id.
@@ -243,7 +243,7 @@ Vanilla `ProjectileTargeting` homes onto and damages players only, so it can't b
 - **Tentacle Cannon:** its shots are refunded (a `BeginFire` prefix saves the magazine and an
   `EndFire` finalizer puts it back); `TentacleAmmoDriver` drains it by time held instead, and it
   reloads like any gun.
-- **Infinite ammo** (`InfiniteAmmo.On`, the shared Insert toggle in `Shared/InfiniteToggles.cs`):
+- **Infinite ammo** (`InfiniteAmmo.On`, the shared Delete toggle in `Shared/InfiniteToggles.cs`):
   the same save-and-restore refunds every shot of every gun, vanilla included, and the held-trigger
   guns skip their drain.
 
@@ -636,7 +636,7 @@ src/GTFO.EZ.AbsurdWeapons/       the plugin project (BepInEx/Il2Cpp - needs the 
   WarhammerSlam.cs      the Warhammer's full-charge ground slam and its scattered debris
   MjolnirThrow.cs       Mjolnir's full-charge throw, flight and return
   GearCycler.cs         in-level weapon swapping on a second press of the slot keys
-  InfiniteAmmo.cs       ammo settings, stream-gun drain (infinite ammo is the shared Insert toggle)
+  InfiniteAmmo.cs       ammo settings, stream-gun drain (infinite ammo is the shared Delete toggle)
   LockDamage.cs         lets this mod's weapons (which only look for enemy limbs) also melt door locks
   ProjectileHits.cs     what a hand-flown rocket or grenade can hit besides enemies (other players and bots)
   Sounds.cs             per-weapon sound choices, vanilla shot audio suppression, loop sounds
