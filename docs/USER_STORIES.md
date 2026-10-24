@@ -246,3 +246,4 @@ _Nothing recorded yet._
 | G.AWPN-T219 | 2026-10-24 | docs | closed | Update USER_STORIES.md | — |
 | G.AWPN-T220 | 2026-10-24 | feature | closed | Home key toggles Absurd Weapons on/off: off at run start, on restores nothing yet, off again strips all absurd gear and restores starting loadout, ammo and health | GearCycler.cs |
 | G.AWPN-T221 | 2026-10-24 | feature | closed | Home's on/off toggle always logs to the BepInEx console too, not just the on-screen message | GearCycler.cs |
+| G.AWPN-T222 | 2026-10-24 | chore | closed | Cut the v15 release: bump VERSION/manifest, move the Home-toggle changelog entry from the already-shipped v14 into a new v15 section, rebuild and repackage dist/ | package/manifest.json |
