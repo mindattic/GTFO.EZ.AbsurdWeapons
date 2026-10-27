@@ -20,8 +20,23 @@ namespace GTFO.EZ.AbsurdWeapons;
 internal static class BladeStretcher
 {
     // Each blade's unstretched transform, so re-applying (a second spawn callback, or a changed
-    // config) always starts from the original instead of compounding.
-    private static readonly Dictionary<int, (Vector3 Scale, Vector3 Position)> originals = new();
+    // config) always starts from the original instead of compounding. Keyed by instance id, so the
+    // blade itself is kept alongside it: every rebuilt model (the loadout screen, a re-equip, a
+    // teammate's model) adds an entry here, and without the blade to check against for whether it's
+    // been destroyed, nothing would ever come back out - this dictionary would grow for as long as
+    // the game kept running.
+    private static readonly Dictionary<int, (Transform Blade, Vector3 Scale, Vector3 Position)> originals = new();
+
+    // Drops entries for blades that no longer exist, so the table stays the size of however many
+    // models are actually alive right now instead of accumulating every one ever built.
+    private static void PruneDestroyed()
+    {
+        List<int>? dead = null;
+        foreach (var (id, entry) in originals)
+            if (entry.Blade == null) (dead ??= new List<int>()).Add(id);
+        if (dead == null) return;
+        foreach (var id in dead) originals.Remove(id);
+    }
 
     [HarmonyPostfix]
     private static void Postfix(GearPartHolder __instance)
@@ -56,10 +71,11 @@ internal static class BladeStretcher
     // hand (the point of the model under it stays put).
     private static void Stretch(string weapon, Transform holder, Transform blade, Transform pin, bool onePiece, float factor, BladeAxis axisSetting)
     {
+        PruneDestroyed();
         var id = blade.GetInstanceID();
         if (!originals.TryGetValue(id, out var original))
         {
-            original = (blade.localScale, blade.localPosition);
+            original = (blade, blade.localScale, blade.localPosition);
             originals[id] = original;
         }
 
