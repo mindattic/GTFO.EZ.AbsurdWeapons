@@ -540,7 +540,9 @@ press turns it on, records every one of the four slots' current `GearIDRange` an
 still holding something else is swapped back the same way a cycle swap is (saving and restoring its
 own ammo), the slot that was in hand is re-wielded once the swaps finish loading, and
 `Damage.SendSetHealth` puts health back to its recorded value - so a run can go back to serious with
-none of the absurdity left behind.
+none of the absurdity left behind. The on/off state (`Announce`) goes in the event log and the
+console, not just the short line under the crosshair - same as the Insert/Delete infinite health and
+ammo toggles - so it's never just text that scrolled past.
 
 ### Sounds
 

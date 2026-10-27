@@ -305,11 +305,13 @@ internal sealed class GearCycler : MonoBehaviour
             Plugin.Logger.LogInfo($"GTFO.EZ.AbsurdWeapons: {message}");
     }
 
-    // The Absurd Weapons on/off state specifically: always in the console too (not just a fallback
-    // for when the on-screen message fails), so it's never just text that scrolled past.
+    // The Absurd Weapons on/off state specifically: in the event log and the console too (not just a
+    // fallback for when the on-screen message fails), so it's never just text that scrolled past -
+    // same as InfiniteToggles' infinite health/ammo announcements.
     private static void Announce(string message)
     {
         Show(message);
+        MessageHelper.Show(message, MessageType.EventLog);
         Plugin.Logger.LogInfo($"GTFO.EZ.AbsurdWeapons: {message}");
     }
 }
