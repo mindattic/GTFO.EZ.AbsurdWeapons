@@ -1,5 +1,16 @@
 # Changelog
 
+## v18
+
+- **Bug fix:** `BladeStretcher`'s cache of each blade's unstretched transform was keyed by instance
+  ID alone, with no way to tell a destroyed blade from a live one, so it grew for as long as the game
+  process ran (every rebuilt model - the loadout screen, a re-equip, a teammate's model - added an
+  entry that never came back out). It now prunes destroyed blades before each use.
+- **The Absurd Weapons on/off toggle now also announces in the event log**, not just the short line
+  under the crosshair and the console - same as the Insert/Delete infinite health and ammo toggles.
+- Moves in step with the GTFO.EZ family's version number (GTFO.EZ, GTFO.EZ.AbsurdWeapons,
+  GTFO.EZ.AbsurdMoves and GTFO.EZ.AbsurdItems share one).
+
 ## v17
 
 - `GTFO.EZ.Shared` submodule bump: `SharedOwner.Order` no longer lists `GTFO.CrashTestDummies`,
